@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+</head>
+<body>
+    <h1>Список нотаток</h1>
+    <ul>
+        {% for idx in range(notes|length) %}
+        <li>{{ notes[idx] }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Додати нотатку</h2>
+    <form action="/add_note" method="post">
+        <textarea name="note_content" rows="4" cols="50"></textarea><br>
+        <input type="submit" value="Додати">
+    </form>
+
+    <h2>Редагувати нотатку</h2>
+    <form action="/edit_note" method="post">
+        <select name="note_id">
+            {% for idx in range(notes|length) %}
+            <option value="{{ idx }}">{{ notes[idx] }}</option>
+            {% endfor %}
+        </select><br>
+        <textarea name="new_content" rows="4" cols="50"></textarea><br>
+        <input type="submit" value="Редагувати">
+    </form>
+
+    <h2>Видалити нотатку</h2>
+    <form action="/delete_note" method="post">
+        <select name="note_id">
+            {% for idx in range(notes|length) %}
+            <option value="{{ idx }}">{{ notes[idx] }}</option>
+            {% endfor %}
+        </select><br>
+        <input type="submit" value="Видалити">
+    </form>
+</body>
+</html>

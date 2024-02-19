@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes App</title>
+</head>
+<body>
+    <h1>Notes App</h1>
+    
+    <!-- Форма для додавання нової категорії -->
+    <form action="/add_category" method="post">
+        <input type="text" name="category_name" placeholder="Enter category name">
+        <button type="submit">Add Category</button>
+    </form>
+    
+    <h2>Categories:</h2>
+    <ul>
+        {% for category in categories %}
+            <li>{{ category[1] }}</li>  <!-- Виведення назв категорій -->
+            <ul>
+                <!-- Виведення нотаток для кожної категорії -->
+                {% for note in notes %}
+                    {% if note[1] == category[0] %}
+                        <li>{{ note[2] }} 
+                            <!-- Посилання для видалення нотатки -->
+                            <form action="/delete_note/{{ note[0] }}" method="post">
+                                <button type="submit">Delete</button>
+                            </form>
+                            <!-- Посилання для редагування нотатки -->
+                            <a href="/edit_note/{{ note[0] }}">Edit</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </ul>
+    
+    <!-- Форма для додавання нової нотатки -->
+    <form action="/add_note" method="post">
+        <select name="category_id">
+            {% for category in categories %}
+                <option value="{{ category[0] }}">{{ category[1] }}</option>
+            {% endfor %}
+        </select>
+        <input type="text" name="note_content" placeholder="Enter note content">
+        <button type="submit">Add Note</button>
+    </form>
+    
+    <!-- Повідомлення про помилки або успіх -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</body>
+</html>

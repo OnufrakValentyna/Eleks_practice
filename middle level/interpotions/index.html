@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linear Interpolation</title>
+</head>
+<body>
+    <h1>Linear Interpolation</h1>
+    <form action="/interpolate" method="post">
+        <label for="points">Enter points (x,y):</label><br>
+        <input type="text" name="points[]" placeholder="x1,y1"><br>
+        <input type="text" name="points[]" placeholder="x2,y2"><br>
+        <input type="text" name="points[]" placeholder="x3,y3"><br>
+        <!-- Add more input fields if needed -->
+        <label for="target_length">Enter target length:</label><br>
+        <input type="number" name="target_length"><br><br>
+        <input type="submit" value="Interpolate">
+    </form>
+</body>
+</html>
